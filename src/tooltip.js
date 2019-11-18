@@ -6,6 +6,7 @@ import {
   Modal,
   TouchableWithoutFeedback,
   View,
+  ViewPropTypes,
 } from 'react-native';
 import rfcIsEqual from 'react-fast-compare';
 import {
@@ -97,6 +98,7 @@ class Tooltip extends Component {
     supportedOrientations: PropTypes.arrayOf(PropTypes.string),
     useInteractionManager: PropTypes.bool,
     useReactNativeModal: PropTypes.bool,
+    childrenContainerStyle: ViewPropTypes.style,
   };
 
   constructor(props) {
@@ -395,7 +397,12 @@ class Tooltip extends Component {
   };
 
   render() {
-    const { children, isVisible, useReactNativeModal } = this.props;
+    const {
+      children,
+      isVisible,
+      useReactNativeModal,
+      childrenContainerStyle,
+    } = this.props;
 
     const hasChildren = React.Children.count(children) > 0;
     const showTooltip = isVisible && !this.state.waitingForInteractions;
@@ -415,7 +422,11 @@ class Tooltip extends Component {
 
         {/* This renders the child element in place in the parent's layout */}
         {hasChildren ? (
-          <View ref={this.childWrapper} onLayout={this.measureChildRect}>
+          <View
+            ref={this.childWrapper}
+            onLayout={this.measureChildRect}
+            style={childrenContainerStyle}
+          >
             {children}
           </View>
         ) : null}

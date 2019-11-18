@@ -94,6 +94,11 @@ declare module 'react-native-walkthrough-tooltip' {
      * but rather an absolutely positioned view
      */
     useReactNativeModal?: boolean;
+
+    /**
+     * Style to be applied to the view that wraps children
+     */
+    childrenContainerStyle?: StyleProp<ViewStyle>;
   }
 
   /**
